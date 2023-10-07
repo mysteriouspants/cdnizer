@@ -45,7 +45,7 @@ struct IndexJson {
 
 fn main() -> color_eyre::Result<()> {
     // 1. write out vendor dir
-    remove_dir_all(VENDOR_DIR_NAME)?;
+    let _ = remove_dir_all(VENDOR_DIR_NAME);
     create_dir(VENDOR_DIR_NAME)?;
     VENDOR_DIR.extract(VENDOR_DIR_NAME)?;
 
