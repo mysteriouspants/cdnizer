@@ -186,7 +186,7 @@ trait ToWebPath {
 
 impl ToWebPath for Path {
     fn to_web_path(&self) -> String {
-        self.components()
+        let basepath = self.components()
             .map(|c| match c {
                 Component::Normal(elem) => elem.to_os_string(),
                 _ => OsString::new(),
@@ -195,7 +195,13 @@ impl ToWebPath for Path {
             .collect::<Vec<_>>()
             .join(OsStr::new("/"))
             .to_string_lossy()
-            .to_string()
+            .to_string();
+
+        if self.is_dir() {
+            format!("{}/index.html", basepath)
+        } else {
+            basepath
+        }
     }
 }
 
