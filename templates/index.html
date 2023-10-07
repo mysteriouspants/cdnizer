@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en-us">
+    <head>
+        <title>TODO: title text</title>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link rel="stylesheet" href="/{{ vendor_dir }}/bootstrap.min.css"/>
+        <style>
+            body {
+                padding-top: 60px;
+                padding-bottom: 40px;
+            }
+            #indices-table tbody tr td:first-child {
+                text-align: center;
+            }
+        </style>
+
+        <!--[if lt IE 9]>
+            <script src="/{{ vendor_dir }}/html5shiv.min.js"></script>
+        <![endif]-->
+    <body>
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <?=$logohtml?>
+                </div>
+                <div class="col-6">
+                    <?=$readmetext?>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <ul class="breadcrumb">
+                        <li>
+                            <a href="/"><span class="divider">/</span></a>
+                        </li>
+                        {% for breadcrumb in breadcrumbs %}
+                            <li>
+                                <a href="/{{ breadcrumb.path }}">{{ breadcrumb.name }}</a>
+                                {% if !loop.last %}
+                                    <span class="divider">/</span>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-10" id="indices-content">
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Last modified</th>
+                            <th>Size</th>
+                        </tr>
+                        {% for entry in entries %}
+                            <tr>
+                                <td><img src="/{{ vendor_dir }}/icons/{{ entry.icon }}"/></td>
+                                <td><a href="/{{ entry.path }}">{{ entry.name }}</a></td>
+                                <td>{% if entry.size != "directory" %}{{ entry.date }}{% endif %}</td>
+                                <td>{% if entry.size != "directory" %}{{ entry.size }}{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
